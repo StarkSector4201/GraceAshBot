@@ -4561,18 +4561,7 @@ def main():
     logger.info("📋 Starting Grace Ashcroft Bot...")
 
     try:
-        # Initialize Music Engine Service
-        init_music_engine({
-            "YT_DLP_PATH": YT_DLP_PATH,
-            "FFMPEG_PATH": FFMPEG_PATH,
-            "COOKIES_PATH": COOKIES_PATH,
-            "GRACE_PROXY": GRACE_PROXY,
-            "GRACE_COOKIES": GRACE_COOKIES,
-            "PO_TOKEN": PO_TOKEN,
-            "VISITOR_DATA": VISITOR_DATA,
-            "MASTER_ID": MASTER_ID,
-            "OWNER_ID": OWNER_ID
-        })
+
 
         proxy_url = GRACE_PROXY if GRACE_PROXY and GRACE_PROXY.strip() else None
         
