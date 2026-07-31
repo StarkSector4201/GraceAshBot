@@ -1409,9 +1409,9 @@ async def build_status_message(chat_id: int):
             f"▸ **استهلاك المعالج (CPU):** `[{metrics['cpu_bar']}] {metrics['cpu_pct']:.1f}%`\n"
             f"▸ **الذاكرة العشوائية (RAM):** `[{metrics['ram_bar']}] {metrics['ram_used_gb']}GB / {metrics['ram_total_gb']}GB ({metrics['ram_pct']}%)`\n"
             f"▸ **ذاكرة البوت (RSS):** `{metrics['proc_ram_mb']} MB`\n\n"
-            "📡 **تشخيص الأنظمة الفرعية:**\n"
+            "**تشخيص الأنظمة الفرعية:**\n"
             f"▸ 🎵 **محرك الصوتيات (Music Engine):** {music_status}\n"
-            f"▸ 📡 **تغذية DeepScope:** {news_status}\n"
+            f"▸ 🌐 **تغذية DeepScope:** {news_status}\n"
             f"▸ 🤖 **منطق الذكاء الاصطناعي (Groq):** {ai_status}\n"
             "▸ 💾 **قاعدة البيانات:** متصلة 🟢\n"
             "▸ 🛡️ **مصفوفة الحماية:** نشطة 🟢\n\n"
@@ -1423,7 +1423,7 @@ async def build_status_message(chat_id: int):
         intel_btn = "🔍 معلومات النظام"
     else:
         music_status = "ONLINE 🟢" if music_ok else "LIMITED (FFmpeg Missing) ⚠️"
-        news_status = "ACTIVE (4 Feeds) 📡"
+        news_status = "ACTIVE (4 Feeds) 🌐"
         ai_status = "ONLINE ⚡" if ai_ok else "DISABLED (API Key) ❌"
 
         status_text = (
@@ -1436,9 +1436,9 @@ async def build_status_message(chat_id: int):
             f"▸ **CPU Load:** `[{metrics['cpu_bar']}] {metrics['cpu_pct']:.1f}%`\n"
             f"▸ **Host Memory:** `[{metrics['ram_bar']}] {metrics['ram_used_gb']}GB / {metrics['ram_total_gb']}GB ({metrics['ram_pct']}%)`\n"
             f"▸ **Process RSS:** `{metrics['proc_ram_mb']} MB`\n\n"
-            "📡 **Subsystem Diagnostics:**\n"
+            "**Subsystem Diagnostics:**\n"
             f"▸ 🎵 **Music Node Engine:** {music_status}\n"
-            f"▸ 📡 **DeepScope Intelligence:** {news_status}\n"
+            f"▸ 🌐 **DeepScope Intelligence:** {news_status}\n"
             f"▸ 🤖 **Groq AI Logic:** {ai_status}\n"
             "▸ 💾 **Database Connectivity:** ONLINE 🟢\n"
             "▸ 🛡️ **Security Matrix:** ACTIVE 🟢\n\n"
@@ -3510,7 +3510,7 @@ async def cmd_newsctl(update: Update, context: ContextTypes.DEFAULT_TYPE):
         targets_str = "\n".join(target_lines) if target_lines else "  _لا يوجد_"
         
         await update.message.reply_text(
-            f"📡 **DeepScope — نظام البث المباشر**\n"
+            f"**DeepScope — نظام البث المباشر**\n"
             f"━━━━━━━━━━━━━━━━━━━━━\n\n"
             f"🟢 **الحالة:** {status_icon} {'مفعل' if enabled else 'معطل'}\n\n"
             f"🎯 **الأهداف (قنوات/مجموعات):**\n{targets_str}\n\n"
@@ -3576,7 +3576,7 @@ async def cmd_newssrc(update: Update, context: ContextTypes.DEFAULT_TYPE):
     sources = _get_news_sources()
     
     if not args:
-        report = "📡 **DeepScope — مصادر الأخبار**\n━━━━━━━━━━━━━━━━━━━━━\n\n"
+        report = "**DeepScope — مصادر الأخبار**\n━━━━━━━━━━━━━━━━━━━━━\n\n"
         for sector, urls in sources.items():
             report += f"📁 **{sector}** ({len(urls)} مصدر)\n"
             for i, u in enumerate(urls, 1):
@@ -4038,7 +4038,7 @@ async def news_job(context: ContextTypes.DEFAULT_TYPE):
                 title_line = item['title']
                 source_name = item.get('source_name', 'News')
                 
-                alert = f"📡 **{title_line}**\n\n"
+                alert = f"**{title_line}**\n\n"
                 
                 if summary:
                     alert += f"{summary}\n\n"
@@ -4097,7 +4097,7 @@ async def cmd_summary(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not url.startswith("http"):
         await update.message.reply_text("❌ الرابط غير صالح. يرجى إرسال رابط يبدأ بـ http أو https."); return
     
-    status = await update.message.reply_text("🔄 **جاري تحليل المقال...**\n_يتم الآن جمع البيانات من المصدر._ 📡", parse_mode="Markdown")
+    status = await update.message.reply_text("🔄 **جاري تحليل المقال...**\n_يتم الآن جمع البيانات من المصدر._", parse_mode="Markdown")
     
     try:
         # Fetch the page
@@ -4164,7 +4164,7 @@ async def cmd_summary(update: Update, context: ContextTypes.DEFAULT_TYPE):
         safe_summary = clean_markdown(summary)
 
         # Build the report (Premium Dossier Look)
-        meta_info = f"👤 `{safe_author}`\n📅 `{pub_date}`  |  📡 `{source_name}`"
+        meta_info = f"👤 `{safe_author}`\n📅 `{pub_date}`  |  🏢 `{source_name}`"
         
         report = (
             f"🔓 **DEEPSCOPE — ملف استخباراتي**\n"
@@ -4218,7 +4218,7 @@ async def cmd_analyze(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown"
         ); return
 
-    status = await update.message.reply_text("🔬 **جاري تفعيل بروتوكول DeepScope...**\n_بدء عملية التحليل الجنائي الشامل._ 📡", parse_mode="Markdown")
+    status = await update.message.reply_text("🔬 **جاري تفعيل بروتوكول DeepScope...**\n_بدء عملية التحليل الجنائي الشامل._", parse_mode="Markdown")
 
     try:
         source_info = "بيانات مباشرة"
@@ -4248,7 +4248,7 @@ async def cmd_analyze(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "DO NOT USE Markdown headers like '###'. Use the following format precisely:\n\n"
             "📋 **الملخص التنفيذي:** [Brief, high-level overview]\n\n"
             "🔬 **التحليل الفني الجنائي:** [Deep forensic dive into the content]\n\n"
-            "📡 **التداعيات الاستراتيجية:** [Future market/industry impact]\n\n"
+            "🎯 **التداعيات الاستراتيجية:** [Future market/industry impact]\n\n"
             "Ensure the output is clean and highly professional."
         )
         
@@ -4336,7 +4336,7 @@ async def cmd_forcesync(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != MASTER_ID and update.effective_user.id != OWNER_ID:
         await update.message.reply_text("❌ صلاحية مرفوضة."); return
     
-    await update.message.reply_text("🔄 **جاري بدء المسح الاستخباراتي...**\n_يتم الآن فحص المصادر وتحليل البيانات._ 📡", parse_mode="Markdown")
+    await update.message.reply_text("🔄 **جاري بدء المسح الاستخباراتي...**\n_يتم الآن فحص المصادر وتحليل البيانات._", parse_mode="Markdown")
     await news_job(context)
     await update.message.reply_text("✅ **اكتمل المسح.**\n_يرجى مراجعة قناة التقارير للحصول على المستجدات._", parse_mode="Markdown")
 

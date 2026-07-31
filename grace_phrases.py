@@ -261,7 +261,7 @@ PHRASES = {
         "lock_denied_gnotifyall": "🔒 **BROADCAST SYSTEM OFFLINE**\n━━━━━━━━━━━━━━━\n📝 Reason: {reason}",
         "lock_denied_gstats": "🔒 **DATABASE ACCESS RESTRICTED**\n━━━━━━━━━━━━━━━\n📝 Reason: {reason}",
         "lock_denied_ginfo": "🔒 **REPORTING SYSTEM OFFLINE**\n━━━━━━━━━━━━━━━\n📝 Reason: {reason}",
-        "intel_scan_start": "🔄 **جاري بدء المسح الاستخباراتي...**\n_يتم الآن فحص المصادر وتحليل البيانات._ 📡",
+        "intel_scan_start": "🔄 **جاري بدء المسح الاستخباراتي...**\n_يتم الآن فحص المصادر وتحليل البيانات._",
         "intel_scan_complete": "✅ **اكتمل المسح.**\n_يرجى مراجعة قناة التقارير (Log Channel) للحصول على المستجدات._",
     },
     "arabic_fousha": {
@@ -512,7 +512,7 @@ PHRASES = {
         "lock_denied_gnotifyall": "🔒 **نظام البث خارج الخدمة**\n━━━━━━━━━━━━━━━\n📝 السبب: {reason}",
         "lock_denied_gstats": "🔒 **الوصول لقاعدة البيانات مقيد**\n━━━━━━━━━━━━━━━\n📝 السبب: {reason}",
         "lock_denied_ginfo": "🔒 **نظام التقارير خارج الخدمة**\n━━━━━━━━━━━━━━━\n📝 السبب: {reason}",
-        "intel_scan_start": "🔄 **جاري بدء المسح الاستخباراتي...**\n_يتم الآن فحص المصادر وتحليل البيانات._ 📡",
+        "intel_scan_start": "🔄 **جاري بدء المسح الاستخباراتي...**\n_يتم الآن فحص المصادر وتحليل البيانات._",
         "intel_scan_complete": "✅ **اكتمل المسح.**\n_يرجى مراجعة قناة التقارير (Log Channel) للحصول على المستجدات._",
     },
 }
