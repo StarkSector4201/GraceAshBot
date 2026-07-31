@@ -3841,6 +3841,7 @@ async def summarize_intel_report(title: str, content: str, is_ar: bool = True, a
             "مهمتك هي تقديم ملخص استخباراتي مهني للمقال المذكور. "
             "الأسلوب المتبع: تقرير جنائي (Case Brief)، دقيق، موضوعي، مع لمسة بسيطة من القلق والتركيز المفرط على البيانات. "
             "STRICT CHARACTER RULE: استخدم فقط الحروف العربية الأساسية. لا تستخدم 'چ' أو 'پ' أو 'گ'. "
+            "مهم جداً: ابدأ فوراً بتلخيص المحتوى مباشرة وبدون أي مقدمة أو تمهيد (ممنوع كتابة 'هذا ملخص استخباراتي للمقال:' أو أي عبارة مشابهة). "
             "اذكر النقاط الرئيسية في 3 إلى 5 جمل مهنية."
         )
         
@@ -4167,11 +4168,9 @@ async def cmd_summary(update: Update, context: ContextTypes.DEFAULT_TYPE):
         meta_info = f"👤 `{safe_author}`\n📅 `{pub_date}`  |  🏢 `{source_name}`"
         
         report = (
-            f"🔓 **DEEPSCOPE — ملف استخباراتي**\n"
-            f"━━━━━━━━━━━━━━━━━━━━━\n\n"
-            f"🎯 **{safe_title}**\n\n"
+            f"**{safe_title}**\n\n"
             f"{meta_info}\n\n"
-            f"🔗 [اضغط هنا لفتح المقال الكامل]({url})\n\n"
+            f"🌐 [اضغط هنا لفتح المقال الكامل]({url})\n\n"
             f"📝 **ملخص غريس أشكروفت:**\n"
             f"> {safe_summary}\n\n"
             f"━━━━━━━━━━━━━━━━━━━━━\n"

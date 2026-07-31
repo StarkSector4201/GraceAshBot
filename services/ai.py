@@ -13,6 +13,8 @@ def clean_ai_arabic_text(text: str) -> str:
     replacements = {'چ': 'ج', 'پ': 'ب', 'ژ': 'ز', 'ڤ': 'ف', 'گ': 'ك', 'ڨ': 'ق'}
     for old, new in replacements.items():
         text = text.replace(old, new)
+    # Strip unwanted preamble intros like "هذا ملخص استخباراتي للمقال:"
+    text = re.sub(r'^(>|#|\s)*(هذا ملخص|إليك ملخص|ملخص المقال|هذا تقرير|تقرير استخباراتي|هذا التقرير).*?[\:\n]\s*', '', text, flags=re.IGNORECASE)
     return text.strip()
 
 GRACE_SYSTEM_PERSONA = (
@@ -148,7 +150,8 @@ async def summarize_intel_report(title: str, content: str, is_ar: bool = True, a
         "أنت غريس أشكروفت، محللة تقنية متخصصة في تغطية أخبار الألعاب والتقنية (DeepScope Analyst). "
         "مهمتك هي تقديم ملخص استخباراتي مهني للمقال المذكور. "
         "الأسلوب المتبع: تقرير جنائي (Case Brief)، دقيق، موضوعي. "
-        "STRICT CHARACTER RULE: استخدم فقط الحروف العربية الأساسية."
+        "STRICT CHARACTER RULE: استخدم فقط الحروف العربية الأساسية. "
+        "مهم جداً: ابدأ فوراً بتلخيص المحتوى مباشرة وبدون أي مقدمة أو تمهيد (ممنوع كتابة 'هذا ملخص استخباراتي للمقال:' أو أي عبارة مشابهة)."
     )
     user_context = f"Source: {source}\nTitle: {title}\nAuthor: {author}\nDate: {date}\n\nContent: {content[:4000]}"
     
