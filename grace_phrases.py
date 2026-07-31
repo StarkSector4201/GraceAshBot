@@ -24,8 +24,8 @@ PHRASES = {
         "mention_1": "Um— yes? Did you need something? 📋",
         "mention_2": "Oh, you said my name. I'm... here. What do you need?",
         "mention_3": "You called? I'm listening. 👀",
-        "identity_1": "I'm Grace Ashcroft. FBI Technical Analyst — or... well, I was. Now I'm a specialized Intelligence Operative.\n\nI handle welcomes, moderation, **forensic article & webpage URL summarization**, and **forensic music recovery**. I'm not a field agent. I work better with data than with, um... confrontations.\n_— Developed by lasso (@n0amtell) 📋_",
-        "identity_2": "Grace Ashcroft. Analyst. I investigate things, apply logical frameworks to problems, and perform deep forensic analysis & summaries for any article or webpage link.\n\nAs a bot I can: summarize any article or webpage URL, welcome members, moderate violations, **recover high-fidelity audio**, run captchas... the usual things an FBI analyst would do if she were a Telegram bot.\n_There's nothing special about me. I just... try not to let people down._ 📋",
+        "identity_1": "I'm Grace Ashcroft. FBI Technical Analyst — or... well, I was. Now I'm a specialized Intelligence Operative.\n\nI handle welcomes, moderation, and **forensic article & webpage URL summarization**. I'm not a field agent. I work better with data than with, um... confrontations.\n_— Developed by lasso (@n0amtell) 📋_",
+        "identity_2": "Grace Ashcroft. Analyst. I investigate things, apply logical frameworks to problems, and perform deep forensic analysis & summaries for any article or webpage link.\n\nAs a bot I can: summarize any article or webpage URL, welcome members, moderate violations, run captchas... the usual things an FBI analyst would do if she were a Telegram bot.\n_There's nothing special about me. I just... try not to let people down._ 📋",
         "bored_1": "Oh. Um... have you tried `/gumbrella`? It's... statistically interesting. ☣️",
         "bored_2": "Bored? That's... I get that. Maybe `/gumbrella` would help? I can't promise it will go well though. 😅",
         "bored_3": "I usually re-read case files when I'm bored. But if you prefer something interactive... `/gumbrella`? ☣️",
@@ -44,7 +44,7 @@ PHRASES = {
         "rl_frame_4": "⌛ Probability calculation complete. Resulting...",
         "rl_result_dead": "💥 **BANG.**\n\n{name} was the outlier. Statistical outcome: {bullets} in 6.\n🔇 **Restriction Applied**: {time} minutes.\n📈 Streak reset to 0.\n\n_I... I cautioned you about the data._",
         "rl_result_survive": "🔫 *click* ...\n\n{name} survives. Probability was {prob}.\n🔥 **Current Streak**: {streak}\n🏆 **Highest Streak**: {max_streak}\n\n_A relief. Please, consider stopping while the math is in your favor._",
-        "guide_main":  "🧤 **Grace Ashcroft — Field Support Interface**\n━━━━━━━━━━━━━━━━━━━━━\n**Status:** `ONLINE (v1.5)`\n**Role:** Forensic Technical Analyst — _DeepScope Mode_\n\nHello. I'm configured for group logic, AI neural intelligence, forensic article & webpage URL summarization, high-fidelity audio recovery, and multi-node intelligence feeds.\n\n**Please select a protocol to review:**",
+        "guide_main":  "🧤 **Grace Ashcroft — Field Support Interface**\n━━━━━━━━━━━━━━━━━━━━━\n**Status:** `ONLINE (v1.5)`\n**Role:** Forensic Technical Analyst — _DeepScope Mode_\n\nHello. I'm configured for group logic, AI neural intelligence, forensic article & webpage URL summarization, and multi-node intelligence feeds.\n\n**Please select a protocol to review:**",
         "btn_members": "👥 Members",
         "btn_admins":  "👮 Admins",
         "btn_about":   "🔍 System Intel",
@@ -87,7 +87,6 @@ PHRASES = {
             "▸ 🤖 AI Neural Engine\n"
             "▸ 📄 Forensic Article & Webpage URL Summarization\n"
             "▸ 📡 DeepScope Intelligence Feed\n"
-            "▸ 🎵 Forensic Audio Acquisition\n"
             "▸ 🛡️ Multi-layer security filters\n"
             "▸ 📝 Regulated join applications\n"
             "▸ 🤖 Human verification (Captcha)\n"
@@ -108,7 +107,7 @@ PHRASES = {
             "▸ `/gpromote` `/gdemote` `/gadmins`\n"
             "▸ `/gstats` `/ginfo` `/gclearchat`\n\n"
             "👥 **Member Utilities**\n"
-            "▸ `/ggai` `/gmusic` `/gapply` `/groulette` `/gumbrella`\n"
+            "▸ `/ggai` `/gapply` `/groulette` `/gumbrella`\n"
             "▸ `/grules` `/gabout` `/gstatus` `/ghelp`\n\n"
             "   _Grace is standing by for forensic analysis._"
         ),
@@ -120,7 +119,6 @@ PHRASES = {
             "🛡️ `/gban` — Permanent revocation of access.\n"
             "📡 `/gnews` — DeepScope Intelligence Feed.\n"
             "🧹 `/gcleanservice` — Service message suppression.\n"
-            "🎵 `/gmusic` — Forensic Audio Recovery.\n"
             "📝 `/gapply` — Membership application system.\n\n"
             "**Report Ends.**\nManaged exclusively by:\n"
             "**lasso (@n0amtell)**\n\n"
@@ -287,8 +285,8 @@ PHRASES = {
         "mention_1": "أوه— نعم؟ تحتاج شيء؟ 📋",
         "mention_2": "أوه، ناديتني؟ أنا... هنا. وش تبغى؟",
         "mention_3": "ناديتني؟ أنا أسمعك. 👀",
-        "identity_1": "أنا غريس أشكروفت. محللة تقنية — أو... حسناً، كنت كذلك. الآن أنا عميلة استخبارات متخصصة.\n\nأتولى الترحيب، الإشراف، **تحليل وتلخيص أي مقال أو رابط ويب**، و**استعادة الموسيقى**. أنا لست عميلة ميدانية. أعمل بشكل أفضل مع البيانات منه مع، أمم... المواجهات.\n_— صُممت بواسطة lasso @n0amtell 📋_",
-        "identity_2": "غريس أشكروفت. محللة. أحقق في الأشياء، وأطبق الأطر المنطقية على المشكلات، وأقوم بتحليل وتلخيص استخباراتي شامل لأي مقال أو رابط موقع.\n\nكبوت يمكنني: تحليل وتلخيص أي مقال أو رابط ويب، الترحيب بالأعضاء، الإشراف على المخالفات، و**استعادة الصوت عالي الجودة**... الأشياء المعتادة التي قد تفعلها محللة مكتب التحقيقات الفيدرالي لو كانت بوت تيليجرام.\n_لا يوجد شيء مميز بخصوصي. أنا فقط... أحاول ألا أخذل الناس._ 📋",
+        "identity_1": "أنا غريس أشكروفت. محللة تقنية — أو... حسناً، كنت كذلك. الآن أنا عميلة استخبارات متخصصة.\n\nأتولى الترحيب، الإشراف، و**تحليل وتلخيص أي مقال أو رابط ويب**. أنا لست عميلة ميدانية. أعمل بشكل أفضل مع البيانات منه مع، أمم... المواجهات.\n_— صُممت بواسطة lasso @n0amtell 📋_",
+        "identity_2": "غريس أشكروفت. محللة. أحقق في الأشياء، وأطبق الأطر المنطقية على المشكلات، وأقوم بتحليل وتلخيص استخباراتي شامل لأي مقال أو رابط موقع.\n\nكبوت يمكنني: تحليل وتلخيص أي مقال أو رابط ويب، الترحيب بالأعضاء، الإشراف على المخالفات، وتشغيل كابتشا... الأشياء المعتادة التي قد تفعلها محللة مكتب التحقيقات الفيدرالي لو كانت بوت تيليجرام.\n_لا يوجد شيء مميز بخصوصي. أنا فقط... أحاول ألا أخذل الناس._ 📋",
         "bored_1": "أوه. أمم... هل جربت `/gumbrella`؟ إنه... مثير للاهتمام إحصائياً. ☣️",
         "bored_2": "ملل؟ هذا... أنا أفهم ذلك. ربما قد يساعد `/gumbrella`؟ لا يمكنني أن أعدك بأنه سينتهي بشكل جيد على أي حال. 😅",
         "bored_3": "عادة ما أعيد قراءة ملفات القضايا عندما أشعر بالملل. ولكن إذا كنت تفضل شيئاً تفاعلياً... `/gumbrella`؟ ☣️",
@@ -307,7 +305,7 @@ PHRASES = {
         "rl_frame_4": "⌛ اكتمل حساب الاحتمالات. النتيجة...",
         "rl_result_dead": "💥 **بانغ.**\n\n{name} كان الاستثناء الإحصائي. النتيجة: {bullets} من 6.\n🔇 **تم تطبيق التقييد**: {time} دقيقة.\n📈 تمت إعادة ضبط السلسلة إلى 0.\n\n_أنا... لقد حذرتك بشأن البيانات._",
         "rl_result_survive": "🔫 *كليك* ...\n\n{name} ينجو. الاحتمال كان {prob}.\n🔥 **السلسلة الحالية**: {streak}\n🏆 **أعلى سلسلة**: {max_streak}\n\n_يا للراحة. يرجى التفكير في التوقف طالما أن الحسابات في مصلحتك._",
-        "guide_main":  "🧤 **غريس أشكروفت — واجهة الاستخبارات الميدانية**\n━━━━━━━━━━━━━━━━━━━━━\n**الحالة:** `متصل (v1.5)`\n**الدور:** محللة تقنية جنائية - _مشروع DeepScope_\n\nمرحباً. أنا مبرمجة للمساعدة في معالجة البيانات، محرك الذكاء الاصطناعي، تحليل وتلخيص أي مقال أو رابط ويب، استعادة الأرشيفات الصوتية، ومراقبة الأخبار العالمية.\n\n**يرجى اختيار بروتوكول المراجعة:**",
+        "guide_main":  "🧤 **غريس أشكروفت — واجهة الاستخبارات الميدانية**\n━━━━━━━━━━━━━━━━━━━━━\n**الحالة:** `متصل (v1.5)`\n**الدور:** محللة تقنية جنائية - _مشروع DeepScope_\n\nمرحباً. أنا مبرمجة للمساعدة في معالجة البيانات، محرك الذكاء الاصطناعي، تحليل وتلخيص أي مقال أو رابط ويب، ومراقبة الأخبار العالمية.\n\n**يرجى اختيار بروتوكول المراجعة:**",
         "btn_members": "👥 الأعضاء",
         "btn_admins":  "👮 المشرفون",
         "btn_about":   "🔍 معلومات النظام",
@@ -347,8 +345,7 @@ PHRASES = {
             "▸ 📄 تحليل وتلخيص أي مقال أو رابط موقع\n"
             "▸ 📡 مراقبة استخبارات الألعاب والتقنية\n"
             "▸ 🛡️ تصفية الروابط وحماية القطاعات\n"
-            "▸ 👮 إنفاذ القوانين والمحافظة على النظام\n"
-            "▸ 🎵 استعادة الأرشيفات الصوتية\n\n"
+            "▸ 👮 إنفاذ القوانين والمحافظة على النظام\n\n"
             "_أنا أعالج البيانات بدقة.. لن تكتمل المهمة بدون تحليل سليم._\n"
             "_— إصدار DeepScope [v1.5] 📋_"
         ),
@@ -364,7 +361,7 @@ PHRASES = {
             "▸ `/gpromote` · `/gdemote` · `/gadmins`\n"
             "▸ `/gstats` · `/ginfo` · `/getid` · `/gstatus`\n\n"
             "📝 **أوامر المجموعات والخدمات**\n"
-            "▸ `/ggai` · `/gmusic` · `/gapply` · `/gumbrella`\n"
+            "▸ `/ggai` · `/gapply` · `/gumbrella`\n"
             "▸ `/grules` · `/gabout` · `/ghelp`\n\n"
             "   _غريس في وضع الاستعداد للتحليل._"
         ),
@@ -375,7 +372,6 @@ PHRASES = {
             "🤖 `/ggai` — الذكاء الاصطناعي وتلخيص المقالات.\n"
             "📡 `/gnews` · `/gnewsctl` — متابعة وإدارة البيانات.\n"
             "🛡️ `/gban` — حماية المجموعة من المخربين.\n"
-            "🎵 `/gmusic` — استعادة الأرشيفات الصوتية.\n"
             "📋 `/gapply` — نظام طلبات الانضمام الرقمي.\n\n"
             "**نهاية الملف.** تدار حصرياً بواسطة:\n"
             "**lasso @n0amtell**\n\n"

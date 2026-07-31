@@ -43,7 +43,6 @@ from telegram.request import HTTPXRequest
 import feedparser
 from bs4 import BeautifulSoup as _BS
 from grace_phrases import PHRASES
-from services.music import cmd_music, init_music_engine
 from services.ai import ask_gemini, ask_groq
 
 from collections import OrderedDict
@@ -4631,7 +4630,6 @@ def main():
         app.add_handler(CommandHandler("gmute",         cmd_mute))
         app.add_handler(CommandHandler("gkick",         cmd_kick))
         app.add_handler(CommandHandler("gban",          cmd_ban))
-        app.add_handler(CommandHandler("gmusic",        cmd_music))
         app.add_handler(CommandHandler("gsource",       cmd_source))
         app.add_handler(CommandHandler("gantibot",      cmd_antibot))
         app.add_handler(CommandHandler("gcleanservice", cmd_cleanservice))
