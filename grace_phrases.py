@@ -82,7 +82,7 @@ PHRASES = {
             "━━━━━━━━━━━━━━━━━━━━━\n\n"
             "I'm **Grace Ashcroft** 📋\n"
             "Technical Analyst. Forensic Data Investigator.\n"
-            "Managed exclusively by **lasso (@n0amtell)** 👑\n\n"
+            "Managed exclusively by **lasso (@n0amtell)**\n\n"
             "**Active Subsystems:**\n"
             "▸ 🤖 AI Neural Engine\n"
             "▸ 📄 Forensic Article & Webpage URL Summarization\n"
@@ -96,10 +96,10 @@ PHRASES = {
             "_— Private Build [v1.5] 📋_"
         ),
         "help_msg": (
-            "📋 **Grace Ashcroft** — _Interface Protocol_ 👑\n"
+            "📋 **Grace Ashcroft** — _Interface Protocol_\n"
             "━━━━━━━━━━━━━━━━━━━━━\n"
             "Classification: **Intelligence Analyst (v1.5)**\n\n"
-            "👑 **Administrative Protocols**\n"
+            "⭐ **Administrative Protocols**\n"
             "▸ `/ggai` `/glock` `/gunlock` `/gnewsctl` `/gnewssrc`\n"
             "▸ `/gcleanservice` `/glinkfilter` `/gcaptcha`\n"
             "▸ `/gsetwelcome` `/gsetrules` `/glang`\n\n"
@@ -123,7 +123,7 @@ PHRASES = {
             "🎵 `/gmusic` — Forensic Audio Recovery.\n"
             "📝 `/gapply` — Membership application system.\n\n"
             "**Report Ends.**\nManaged exclusively by:\n"
-            "👑 **lasso (@n0amtell)**\n\n"
+            "**lasso (@n0amtell)**\n\n"
             "_Private Build v1.5 — Grace Ashcroft 📋_"
         ),
         "status_msg": "Systems operational. All hardware & subsystem metrics normal. ✅ _— Grace_",
@@ -341,7 +341,7 @@ PHRASES = {
             "━━━━━━━━━━━━━━━━━━━━━\n\n"
             "محللة تقنية متخصصة في مشروع **DeepScope** 📋\n"
             "تحقيق جنائي رقمي وتتبع البيانات العالمية.\n"
-            "تدار حصرياً بواسطة **lasso @n0amtell** 👑\n\n"
+            "تدار حصرياً بواسطة **lasso @n0amtell**\n\n"
             "**الأنظمة التشغيلية:**\n"
             "▸ 🤖 محرك الذكاء الاصطناعي\n"
             "▸ 📄 تحليل وتلخيص أي مقال أو رابط موقع\n"
@@ -378,7 +378,7 @@ PHRASES = {
             "🎵 `/gmusic` — استعادة الأرشيفات الصوتية.\n"
             "📋 `/gapply` — نظام طلبات الانضمام الرقمي.\n\n"
             "**نهاية الملف.** تدار حصرياً بواسطة:\n"
-            "👑 **lasso @n0amtell**\n\n"
+            "**lasso @n0amtell**\n\n"
             "_إصدار DeepScope [v1.5] — غريس 📋_"
         ),
         "status_msg": "الأنظمة تعمل. جميع قياسات الأجهزة والأنظمة الفرعية طبيعية. ✅ _— غريس_",
