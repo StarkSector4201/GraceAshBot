@@ -3901,12 +3901,15 @@ async def cmd_news_sector(update: Update, context: ContextTypes.DEFAULT_TYPE, se
     }
     
     header = sector_ar.get(sector, sector) if is_ar else sector
-    report = f"📡 **REPORT: {header.upper()}**\n━━━━━━━━━━━━━━━\n\n"
+    report = f"📰 <b>REPORT: {header.upper()}</b>\n━━━━━━━━━━━━━━━\n\n"
     
+    import html as _html
     for item in grouped_news[sector]:
-        report += f"▸ [{item['title']}]({item['link']})\n\n"
+        safe_t = _html.escape(item['title'])
+        safe_l = _html.escape(item['link'])
+        report += f"▸ <b><a href=\"{safe_l}\">{safe_t}</a></b>\n\n"
     
-    report += "━━━━━━━━━━━━━━━\n_" + ("تم إنهاء التحليل. — غريس" if is_ar else "Analysis complete. — Grace") + "_ 📋"
+    report += "━━━━━━━━━━━━━━━\n<i>" + ("تم إنهاء التحليل. — غريس" if is_ar else "Analysis complete. — Grace") + "</i> 📋"
 
     try:
         # Check for deepscope_frame.png in avatar first, then the master banner, then sector specific
@@ -3918,15 +3921,15 @@ async def cmd_news_sector(update: Update, context: ContextTypes.DEFAULT_TYPE, se
                 await update.message.reply_photo(
                     photo=photo_file,
                     caption=report,
-                    parse_mode="Markdown"
+                    parse_mode="HTML"
                 )
             await status.delete()
         else:
             # Fallback if no images are found
-            await status.edit_text(report, parse_mode="Markdown", disable_web_page_preview=True)
+            await status.edit_text(report, parse_mode="HTML", disable_web_page_preview=True)
     except Exception as e:
         logger.error(f"Error sending visual news: {e}")
-        await status.edit_text(report, parse_mode="Markdown", disable_web_page_preview=True)
+        await status.edit_text(report, parse_mode="HTML", disable_web_page_preview=True)
 
 async def cmd_news_gaming(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await cmd_news_sector(update, context, "Gaming", "news_gaming.png")
@@ -4266,29 +4269,37 @@ async def cmd_analyze(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await status.edit_text("❌ فشل النظام في توليد التقرير. يرجى المحاولة لاحقاً."); return
 
         # 3. Format Final Report
-        import random, string
+        import random, string, html as _html
         case_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
         timestamp = datetime.now(TIMEZONE).strftime("%Y-%m-%d %H:%M:%S")
+        safe_source = _html.escape(source_info)
+        
+        # Format bold tags into HTML <b>
+        html_analysis = _html.escape(analysis)
+        html_analysis = _re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', html_analysis)
         
         header = (
-            f"🔐 **DEEPSCOPE CLASSIFIED — ملف استخباراتي**\n"
+            f"🔐 <b>DEEPSCOPE CLASSIFIED — ملف استخباراتي</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━\n"
-            f"🆔 **Case ID:** `{case_id}`\n"
-            f"🕒 **Timestamp:** `{timestamp}`\n"
-            f"🎚️ **Clearance:** `Level 4 (Analyst Only)`\n"
+            f"🆔 <b>Case ID:</b> <code>{case_id}</code>\n"
+            f"🕒 <b>Timestamp:</b> <code>{timestamp}</code>\n"
+            f"🎚️ <b>Clearance:</b> <code>Level 4 (Analyst Only)</code>\n"
             f"━━━━━━━━━━━━━━━━━━━━━\n\n"
         )
         
         report = (
             f"{header}"
-            f"{analysis}\n\n"
+            f"{html_analysis}\n\n"
             f"━━━━━━━━━━━━━━━━━━━━━\n"
-            f"🔍 **مصدر البيانات:** `{source_info}`\n"
-            f"✅ **الحالة:** `ملف مكتمل ومؤرشف`\n"
-            f"_غريس أشكروفت — المحللة التقنية المركزية_ 📋"
+            f"🔍 <b>مصدر البيانات:</b> <code>{safe_source}</code>\n"
+            f"✅ <b>الحالة:</b> <code>ملف مكتمل ومؤرشف</code>\n"
+            f"<i>غريس أشكروفت — المحللة التقنية المركزية</i> 📋"
         )
         
-        await status.edit_text(report, parse_mode="Markdown")
+        try:
+            await status.edit_text(report, parse_mode="HTML")
+        except Exception:
+            await status.edit_text(report.replace("<b>", "").replace("</b>", ""))
 
     except Exception as e:
         logger.error(f"Error in cmd_analyze: {e}")
