@@ -1,0 +1,14 @@
+# Netscape HTTP Cookie File
+# https://curl.haxx.se/rfc/cookie_spec.html
+# This is a generated file! Do not edit.
+
+.soundcloud.com	TRUE	/	FALSE	1793123702	sc_theme	dark
+.soundcloud.com	TRUE	/	TRUE	1777658160	google_auth_nonce	n5F._TiOt4wMbND.tm~OSNzS3OEMoTuGGQB5BsPEH.eLZSdAjcC78BK2n_3V40uY
+.soundcloud.com	TRUE	/	TRUE	0	connect_session	1
+.soundcloud.com	TRUE	/	TRUE	0	soundcloud_session_hint	1
+soundcloud.com	FALSE	/	TRUE	1793123767	oauth_token	2-322067-1695033800-1I8D0fSbdrSIh
+.soundcloud.com	TRUE	/	FALSE	1793123768	sc_tracking_user_id	%22soundcloud%3Ausers%3A1695033800%22
+.soundcloud.com	TRUE	/	FALSE	1780163768	ja	0
+.soundcloud.com	TRUE	/	TRUE	1793123768	OptanonConsent	isGpcEnabled=0&datestamp=Thu+Apr+30+2026+20%3A56%3A08+GMT%2B0300+(Eastern+European+Summer+Time)&version=202603.1.0&browserGpcFlag=0&isIABGlobal=false&identifierType=&hosts=&consentId=6e233f54-d25b-4719-8c09-8818ba6521a3&interactionCount=1&isAnonUser=1&prevHadToken=0&landingPath=NotLandingPage&groups=C0001%3A1%2CC0003%3A0%2CC0004%3A0%2CC0002%3A0%2CV2STACK42%3A0&crTime=1777571767441&AwaitingReconsent=false
+.soundcloud.com	TRUE	/	TRUE	1793123775	extole_access_token	EQDH9M5RHP2ME8U6TKT3PE1SUQ
+.soundcloud.com	TRUE	/	TRUE	1793123782	datadome	jomC4I3IANlAhleGo1j6sV1bhHcvvQ6CWEBKiAcjeaNuEzAMobIYaHHSvb90Ssk1pgeDOPc5n5Eg0VDesmnchmxqjMTyN~BRWylTT5HDBrubYJiZ~06X~FhacqxaQYN4

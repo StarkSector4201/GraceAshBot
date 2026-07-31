@@ -1,0 +1,23 @@
+# Secrets & Credentials
+.env
+*.env
+secret*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# App Data & Logs
+grace_settings.json
+settings_grace.json
+gracebot.log
+*.log
+
+# Temp Folders
+temp/
+scratch/
+
+# OS Files
+.DS_Store
+Thumbs.db
