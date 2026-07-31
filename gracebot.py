@@ -4043,7 +4043,7 @@ async def news_job(context: ContextTypes.DEFAULT_TYPE):
                 if summary:
                     alert += f"{summary}\n\n"
                     
-                alert += f"🏢 **{source_name}** • 🔗 [اقرأ التفاصيل]({item['link']})"
+                alert += f"🌐 **{source_name}** • 📋 [اقرأ التفاصيل]({item['link']})"
                 # Broadcast to all unique targets
                 for target_id in targets:
                     try:
@@ -4660,9 +4660,9 @@ def main():
 
         # Job Queue
         if app.job_queue:
-            logger.info("📡 DeepScope Surveillance Jobs are active. Scanning every 45 minutes.")
-            # Check for news every 45 minutes (Handles all sources including SaudiGamer)
-            app.job_queue.run_repeating(news_job, interval=2700, first=10)
+            logger.info("📡 DeepScope Surveillance Jobs are active. Scanning every 30 minutes.")
+            # Check for news every 30 minutes (Handles all sources including SaudiGamer)
+            app.job_queue.run_repeating(news_job, interval=1800, first=10)
         else:
             logger.warning("⚠️ JobQueue is missing. Automatic news scans will NOT run.")
 
