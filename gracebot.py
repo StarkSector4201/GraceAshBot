@@ -3822,9 +3822,9 @@ def clean_ai_arabic_text(text: str) -> str:
 def clean_markdown(text: str) -> str:
     """Escapes or removes stray markdown characters to prevent parsing errors."""
     if not text: return ""
-    # Characters that break Markdown in Telegram: * _ ` [
+    # Characters that break Markdown in Telegram: * _ ` [ > <
     # We replace them with their standard look-alikes or escape them
-    return text.replace("*", "").replace("_", " ").replace("`", "'").replace("[", "(").replace("]", ")")
+    return text.replace("*", "").replace("_", " ").replace("`", "'").replace("[", "(").replace("]", ")").replace(">", "").replace("<", "")
 
 
 async def summarize_intel_report(title: str, content: str, is_ar: bool = True, author: str = "—", date: str = "—", source: str = "—") -> str:
@@ -4172,7 +4172,7 @@ async def cmd_summary(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"{meta_info}\n\n"
             f"🌐 [اضغط هنا لفتح المقال الكامل]({url})\n\n"
             f"📝 **ملخص غريس أشكروفت:**\n"
-            f"> {safe_summary}\n\n"
+            f"{safe_summary}\n\n"
             f"━━━━━━━━━━━━━━━━━━━━━\n"
             f"غريس أشكروفت — DeepScope 📋"
         )
@@ -4181,7 +4181,7 @@ async def cmd_summary(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await status.edit_text(report, parse_mode="Markdown", disable_web_page_preview=True)
         except Exception as e:
             logger.warning(f"Markdown parsing failed: {e}")
-            await status.edit_text(report.replace("*", "").replace(">", "—"), disable_web_page_preview=True)
+            await status.edit_text(report.replace("*", ""), disable_web_page_preview=True)
         
     except Exception as e:
         logger.error(f"Error in cmd_summary: {e}")

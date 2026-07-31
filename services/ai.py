@@ -8,8 +8,9 @@ from core.logger import logger
 def clean_ai_arabic_text(text: str) -> str:
     """Aggressively purge any characters that are NOT standard Arabic, English, Numbers, or Emojis."""
     if not text: return text
-    whitelist_pattern = re.compile(r'[^a-zA-Z0-9\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\s\.\!\?\:\(\)\[\]\-\_\,\/\@\#\$\%\^\&\*\+\=\>\<\"\'\u2600-\u27BF\U0001f300-\U0001faff]', re.UNICODE)
+    whitelist_pattern = re.compile(r'[^a-zA-Z0-9\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\s\.\!\?\:\(\)\[\]\-\_\,\/\@\#\$\%\^\&\*\+\=\'\"\,\u2600-\u27BF\U0001f300-\U0001faff]', re.UNICODE)
     text = whitelist_pattern.sub('', text)
+    text = text.replace('>', '').replace('<', '')
     replacements = {'چ': 'ج', 'پ': 'ب', 'ژ': 'ز', 'ڤ': 'ف', 'گ': 'ك', 'ڨ': 'ق'}
     for old, new in replacements.items():
         text = text.replace(old, new)
