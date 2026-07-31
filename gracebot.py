@@ -4036,19 +4036,25 @@ async def news_job(context: ContextTypes.DEFAULT_TYPE):
                     )
                 
                 # Build clean report
+                import html as _html
                 title_line = item['title']
                 source_name = item.get('source_name', 'News')
                 
-                alert = f"**{title_line}**\n\n"
+                safe_title = _html.escape(title_line)
+                safe_summary = _html.escape(summary) if summary else ""
+                safe_source = _html.escape(source_name)
+                safe_link = _html.escape(item['link'])
                 
-                if summary:
-                    alert += f"{summary}\n\n"
+                alert = f"<b>{safe_title}</b>\n\n"
+                
+                if safe_summary:
+                    alert += f"{safe_summary}\n\n"
                     
-                alert += f"🌐 **{source_name}** • 📋 [اقرأ التفاصيل]({item['link']})"
+                alert += f"🌐 <b>{safe_source}</b> • 📋 <a href=\"{safe_link}\">اقرأ التفاصيل</a>"
                 # Broadcast to all unique targets
                 for target_id in targets:
                     try:
-                        await context.bot.send_message(target_id, alert, parse_mode="Markdown", disable_web_page_preview=False)
+                        await context.bot.send_message(target_id, alert, parse_mode="HTML", disable_web_page_preview=False)
                     except Exception as e:
                         err_str = str(e)
                         if "getaddrinfo failed" not in err_str and "ConnectError" not in err_str:
@@ -4159,29 +4165,29 @@ async def cmd_summary(update: Update, context: ContextTypes.DEFAULT_TYPE):
         summary = await summarize_intel_report(title, content, is_ar=True)
         summary = clean_ai_arabic_text(summary)
         
-        # Clean components for Markdown safety
-        safe_title = clean_markdown(title)
-        safe_author = clean_markdown(author)
-        safe_summary = clean_markdown(summary)
+        import html as _html
+        safe_title = _html.escape(title)
+        safe_author = _html.escape(author)
+        safe_source = _html.escape(source_name)
+        safe_summary = _html.escape(summary)
 
-        # Build the report (Premium Dossier Look)
-        meta_info = f"👤 `{safe_author}`\n📅 `{pub_date}`  |  🏢 `{source_name}`"
+        meta_info = f"👤 <code>{safe_author}</code>\n📅 <code>{pub_date}</code>  |  🏢 <code>{safe_source}</code>"
         
         report = (
-            f"**{safe_title}**\n\n"
+            f"<b>{safe_title}</b>\n\n"
             f"{meta_info}\n\n"
-            f"🌐 [اضغط هنا لفتح المقال الكامل]({url})\n\n"
-            f"📝 **ملخص غريس أشكروفت:**\n"
+            f"🌐 <a href=\"{url}\">اضغط هنا لفتح المقال الكامل</a>\n\n"
+            f"📝 <b>ملخص غريس أشكروفت:</b>\n"
             f"{safe_summary}\n\n"
             f"━━━━━━━━━━━━━━━━━━━━━\n"
             f"غريس أشكروفت — DeepScope 📋"
         )
         
         try:
-            await status.edit_text(report, parse_mode="Markdown", disable_web_page_preview=True)
+            await status.edit_text(report, parse_mode="HTML", disable_web_page_preview=True)
         except Exception as e:
-            logger.warning(f"Markdown parsing failed: {e}")
-            await status.edit_text(report.replace("*", ""), disable_web_page_preview=True)
+            logger.warning(f"HTML parsing failed: {e}")
+            await status.edit_text(report.replace("<b>", "").replace("</b>", ""), disable_web_page_preview=True)
         
     except Exception as e:
         logger.error(f"Error in cmd_summary: {e}")
