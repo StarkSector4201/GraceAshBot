@@ -61,6 +61,7 @@ class LimitedDict(OrderedDict):
 
 # --- Global Volatile Buffers ---
 _chat_msg_buffer = LimitedDict(max_limit=2000) 
+pending_auth = {}
 
 def escape_md(text: str) -> str:
     """Escapes special characters for Telegram's MarkdownV2 format."""
@@ -3209,9 +3210,12 @@ async def welcome_new_member(update: Update, context: ContextTypes.DEFAULT_TYPE)
                                 f"Hello. This bot is private and managed by **lasso (@n0amtell)**.\n\n"
                                 f"To activate Grace in this group, an admin must provide the invite password using:\n"
                                 f"`/gauth [password]`\n\n"
-                                f"_If unauthorized, contact **lasso (@n0amtell)** for authorization._ 📋"
+                                f"⏳ **مهلة التفعيل:** 60 ثانية (60 Seconds Countdown)\n"
+                                f"_في حال عدم التفعيل خلال 60 ثانية، ستغادر غريس المجموعة تلقائياً._ 📋"
                             )
-                            await message.reply_text(auth_msg, parse_mode="Markdown")
+                            sent_m = await message.reply_text(auth_msg, parse_mode="Markdown")
+                            pending_auth[chat_id] = {"msg_id": sent_m.message_id, "start_time": _time.time()}
+                            asyncio.create_task(auth_timeout_task(context, chat_id, sent_m.message_id))
                     continue
 
                 if group_settings.get("antibot", False):
@@ -3384,6 +3388,49 @@ async def message_buffer_handler(update: Update, context: ContextTypes.DEFAULT_T
 
 # --- AUTHORIZATION & APPLY SYSTEM ---
 
+async def auth_timeout_task(context: ContextTypes.DEFAULT_TYPE, chat_id: int, sent_msg_id: int):
+    """Wait 60 seconds. If group is still not authorized, Grace leaves the chat."""
+    await asyncio.sleep(60)
+    
+    # Check if group was authorized in the meantime
+    settings = load_settings()
+    str_cid = str(chat_id)
+    is_auth = settings.get("groups", {}).get(str_cid, {}).get("authorized", False)
+    
+    if not is_auth:
+        try:
+            await context.bot.send_message(
+                chat_id,
+                "⌛ **انتهت مهلة الترخيص (60 ثانية).**\n"
+                "━━━━━━━━━━━━━━━━━━━━━\n"
+                "لم يتم إدخال كلمة المرور المعتمدة. جاري مغادرة المجموعة الآن.\n"
+                "للحصول على التصريح، يرجى التواصل مع المطور **lasso (@n0amtell)**. 📋",
+                parse_mode="Markdown"
+            )
+        except Exception: pass
+        
+        try:
+            await context.bot.leave_chat(chat_id)
+            logger.info(f"Evacuated unauthorized group {chat_id} after 60s timeout.")
+        except Exception as e:
+            logger.error(f"Failed to leave unauthorized chat {chat_id}: {e}")
+            
+        log_msg = (
+            f"🚪 **إشعار مغادرة مجموعة غير مرخصة (Evacuation)**\n"
+            f"━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📌 **المجموعة:** `{chat_id}`\n"
+            f"🕒 **السبب:** انتهت مهلة الـ 60 ثانية دون تفعيل بكلمة المرور.\n"
+            f"━━━━━━━━━━━━━━━━━━━━━"
+        )
+        if LOG_CHANNEL:
+            try: await context.bot.send_message(int(LOG_CHANNEL), log_msg, parse_mode="Markdown")
+            except Exception: pass
+        if MASTER_ID:
+            try: await context.bot.send_message(MASTER_ID, log_msg, parse_mode="Markdown")
+            except Exception: pass
+            
+    pending_auth.pop(chat_id, None)
+
 async def cmd_auth(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Authenticate and authorize group using INVITE_PASSWORD."""
     try:
@@ -3421,6 +3468,7 @@ async def cmd_auth(update: Update, context: ContextTypes.DEFAULT_TYPE):
         expected_pass = INVITE_PASSWORD or os.getenv("INVITE_PASSWORD", "")
 
         if entered_pass == expected_pass and expected_pass:
+            pending_auth.pop(chat_id, None)
             if str_cid not in settings["groups"]:
                 settings["groups"][str_cid] = {"welcome": None, "rules": None, "dialect": DEFAULT_DIALECT, "authorized": True}
             else:
