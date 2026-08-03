@@ -3204,15 +3204,7 @@ async def welcome_new_member(update: Update, context: ContextTypes.DEFAULT_TYPE)
                         str_cid = str(chat_id)
                         is_auth = settings.get("groups", {}).get(str_cid, {}).get("authorized", False)
                         if not is_auth:
-                            auth_msg = (
-                                f"⛔ **Grace Ashcroft — Authorization Required**\n"
-                                f"━━━━━━━━━━━━━━━━━━━━━\n"
-                                f"Hello. This bot is private and managed by **lasso (@n0amtell)**.\n\n"
-                                f"To activate Grace in this group, an admin must provide the invite password using:\n"
-                                f"`/gauth [password]`\n\n"
-                                f"⏳ **مهلة التفعيل:** 60 ثانية (60 Seconds Countdown)\n"
-                                f"_في حال عدم التفعيل خلال 60 ثانية، ستغادر غريس المجموعة تلقائياً._ 📋"
-                            )
+                            auth_msg = get_phrase(chat_id, "auth_required")
                             sent_m = await message.reply_text(auth_msg, parse_mode="Markdown")
                             pending_auth[chat_id] = {"msg_id": sent_m.message_id, "start_time": _time.time()}
                             asyncio.create_task(auth_timeout_task(context, chat_id, sent_m.message_id))
@@ -3401,10 +3393,7 @@ async def auth_timeout_task(context: ContextTypes.DEFAULT_TYPE, chat_id: int, se
         try:
             await context.bot.send_message(
                 chat_id,
-                "⌛ **انتهت مهلة الترخيص (60 ثانية).**\n"
-                "━━━━━━━━━━━━━━━━━━━━━\n"
-                "لم يتم إدخال كلمة المرور المعتمدة. جاري مغادرة المجموعة الآن.\n"
-                "للحصول على التصريح، يرجى التواصل مع المطور **lasso (@n0amtell)**. 📋",
+                get_phrase(chat_id, "auth_timeout_departure"),
                 parse_mode="Markdown"
             )
         except Exception: pass
@@ -3477,10 +3466,7 @@ async def cmd_auth(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
             user_tag = f"@{user.username}" if user.username else user.first_name
             await update.message.reply_text(
-                f"✅ **تم الترخيص بنجاح!**\n"
-                f"━━━━━━━━━━━━━━━━━━━━━\n"
-                f"تم تفعيل جميع خدمات غريس أشكروفت في هذا القطاع.\n"
-                f"شكراً لك، {user.first_name}. 📋",
+                get_phrase(chat_id, "auth_success", name=user.first_name),
                 parse_mode="Markdown"
             )
 
@@ -3501,8 +3487,7 @@ async def cmd_auth(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 except Exception: pass
         else:
             await update.message.reply_text(
-                "❌ **كلمة المرور غير صحيحة.**\n"
-                "يرجى التواصل مع المطور **lasso (@n0amtell)** للحصول على التصريح. 📋",
+                get_phrase(chat_id, "auth_failed"),
                 parse_mode="Markdown"
             )
 

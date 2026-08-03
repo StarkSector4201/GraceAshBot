@@ -263,6 +263,31 @@ PHRASES = {
         "lock_denied_ginfo": "🔒 **REPORTING SYSTEM OFFLINE**\n━━━━━━━━━━━━━━━\n📝 Reason: {reason}",
         "intel_scan_start": "🔄 **جاري بدء المسح الاستخباراتي...**\n_يتم الآن فحص المصادر وتحليل البيانات._",
         "intel_scan_complete": "✅ **اكتمل المسح.**\n_يرجى مراجعة قناة التقارير (Log Channel) للحصول على المستجدات._",
+        "auth_required": (
+            "⛔ **Grace Ashcroft — Authorization Required**\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            "Hello. This bot is private and managed by **lasso (@n0amtell)**.\n\n"
+            "To activate Grace in this group, an admin must provide the invite password using:\n"
+            "`/gauth [password]`\n\n"
+            "⏳ **Activation Window:** 60 seconds\n"
+            "_If unauthorized within 60 seconds, Grace will evacuate the group automatically._ 📋"
+        ),
+        "auth_timeout_departure": (
+            "⌛ **Authorization Window Expired (60s).**\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            "No valid password was provided. Evacuating chat now.\n"
+            "To request authorization, please contact developer **lasso (@n0amtell)**. 📋"
+        ),
+        "auth_success": (
+            "✅ **Access Granted!**\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            "All Grace Ashcroft services are now operational in this sector.\n"
+            "Thank you, {name}. 📋"
+        ),
+        "auth_failed": (
+            "❌ **Incorrect Password.**\n"
+            "Please contact developer **lasso (@n0amtell)** for authorization. 📋"
+        ),
     },
     "arabic_fousha": {
         "welcome":      "أوه... مرحباً. أهلاً بكم. أنا... سعيدة لأنكم وصلتم بأمان. يرجى قراءة القواعد عندما تسنح لكم الفرصة. 📋",
@@ -514,5 +539,30 @@ PHRASES = {
         "lock_denied_ginfo": "🔒 **نظام التقارير خارج الخدمة**\n━━━━━━━━━━━━━━━\n📝 السبب: {reason}",
         "intel_scan_start": "🔄 **جاري بدء المسح الاستخباراتي...**\n_يتم الآن فحص المصادر وتحليل البيانات._",
         "intel_scan_complete": "✅ **اكتمل المسح.**\n_يرجى مراجعة قناة التقارير (Log Channel) للحصول على المستجدات._",
+        "auth_required": (
+            "⛔ **غريس أشكروفت — تصريح الدخول مطلوب**\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            "مرحباً. هذا البوت خاص وتدار كافة خدماته بواسطة **lasso (@n0amtell)**.\n\n"
+            "لتفعيل غريس في هذه المجموعة، يجب على أحد المشرفين إدخال كلمة المرور المعتمدة عبر الأمر:\n"
+            "`/gauth [كلمة المرور]`\n\n"
+            "⏳ **مهلة التفعيل المتاحة:** 60 ثانية\n"
+            "_في حال عدم التفعيل خلال 60 ثانية، ستغادر غريس المجموعة تلقائياً._ 📋"
+        ),
+        "auth_timeout_departure": (
+            "⌛ **انتهت مهلة الترخيص (60 ثانية).**\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            "لم يتم إدخال كلمة المرور المعتمدة. جاري مغادرة المجموعة الآن.\n"
+            "للحصول على التصريح، يرجى التواصل مع المطور **lasso (@n0amtell)**. 📋"
+        ),
+        "auth_success": (
+            "✅ **تم الترخيص بنجاح!**\n"
+            "━━━━━━━━━━━━━━━━━━━━━\n"
+            "تم تفعيل جميع خدمات غريس أشكروفت في هذا القطاع.\n"
+            "شكراً لك، {name}. 📋"
+        ),
+        "auth_failed": (
+            "❌ **كلمة المرور غير صحيحة.**\n"
+            "يرجى التواصل مع المطور **lasso (@n0amtell)** للحصول على التصريح. 📋"
+        ),
     },
 }
