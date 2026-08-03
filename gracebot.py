@@ -3162,6 +3162,58 @@ async def welcome_new_member(update: Update, context: ContextTypes.DEFAULT_TYPE)
             return
         for new_member in (message.new_chat_members or []):
             if new_member.is_bot:
+                if new_member.id == context.bot.id:
+                    adder = message.from_user
+                    adder_id = adder.id if adder else 0
+                    adder_name = adder.first_name if adder else "Unknown"
+                    adder_user = f"@{adder.username}" if (adder and adder.username) else adder_name
+                    
+                    log_text = (
+                        f"🚨 **إشعار إضافة البوت لمجموعة جديدة**\n"
+                        f"━━━━━━━━━━━━━━━━━━━━━\n"
+                        f"📌 **المجموعة:** `{message.chat.title}` (`{chat_id}`)\n"
+                        f"👤 **أضيف بواسطة:** {adder_user} (`{adder_id}`)\n"
+                        f"🕒 **الوقت:** `{datetime.now(TIMEZONE).strftime('%Y-%m-%d %H:%M:%S')}`\n"
+                        f"━━━━━━━━━━━━━━━━━━━━━\n"
+                    )
+                    if LOG_CHANNEL:
+                        try: await context.bot.send_message(int(LOG_CHANNEL), log_text, parse_mode="Markdown")
+                        except Exception: pass
+                    if MASTER_ID:
+                        try: await context.bot.send_message(MASTER_ID, log_text, parse_mode="Markdown")
+                        except Exception: pass
+
+                    if adder_id in [MASTER_ID, OWNER_ID] or adder_id in SUDO_USERS:
+                        settings = load_settings()
+                        str_cid = str(chat_id)
+                        if str_cid not in settings["groups"]:
+                            settings["groups"][str_cid] = {"welcome": None, "rules": None, "dialect": DEFAULT_DIALECT, "authorized": True}
+                        else:
+                            settings["groups"][str_cid]["authorized"] = True
+                        save_settings(settings)
+                        await message.reply_text(
+                            f"✅ **Grace Ashcroft — Authorized Entry**\n"
+                            f"━━━━━━━━━━━━━━━━━━━━━\n"
+                            f"Hello everyone. I've been deployed here by developer **lasso (@n0amtell)**.\n"
+                            f"All systems operational. Type `/ghelp` or `/gstart` to begin. 📋",
+                            parse_mode="Markdown"
+                        )
+                    else:
+                        settings = load_settings()
+                        str_cid = str(chat_id)
+                        is_auth = settings.get("groups", {}).get(str_cid, {}).get("authorized", False)
+                        if not is_auth:
+                            auth_msg = (
+                                f"⛔ **Grace Ashcroft — Authorization Required**\n"
+                                f"━━━━━━━━━━━━━━━━━━━━━\n"
+                                f"Hello. This bot is private and managed by **lasso (@n0amtell)**.\n\n"
+                                f"To activate Grace in this group, an admin must provide the invite password using:\n"
+                                f"`/gauth [password]`\n\n"
+                                f"_If unauthorized, contact **lasso (@n0amtell)** for authorization._ 📋"
+                            )
+                            await message.reply_text(auth_msg, parse_mode="Markdown")
+                    continue
+
                 if group_settings.get("antibot", False):
                     try:
                         await context.bot.ban_chat_member(chat_id, new_member.id)
@@ -3330,7 +3382,84 @@ async def message_buffer_handler(update: Update, context: ContextTypes.DEFAULT_T
         _chat_msg_buffer[chat_id].append(message.message_id)
     except Exception: pass
 
-# --- APPLY SYSTEM ---
+# --- AUTHORIZATION & APPLY SYSTEM ---
+
+async def cmd_auth(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Authenticate and authorize group using INVITE_PASSWORD."""
+    try:
+        chat_id = update.effective_chat.id
+        user = update.effective_user
+        user_id = user.id
+        chat_title = update.effective_chat.title or "Private Chat"
+
+        if update.effective_chat.type == "private":
+            await update.message.reply_text("ℹ️ Authorization commands are for group chats.")
+            return
+
+        settings = load_settings()
+        str_cid = str(chat_id)
+        
+        if user_id in [MASTER_ID, OWNER_ID] or user_id in SUDO_USERS:
+            if str_cid not in settings["groups"]:
+                settings["groups"][str_cid] = {"welcome": None, "rules": None, "dialect": DEFAULT_DIALECT, "authorized": True}
+            else:
+                settings["groups"][str_cid]["authorized"] = True
+            save_settings(settings)
+            await update.message.reply_text("✅ **Group Authorized.** Verified by Master/Owner privilege. 📋", parse_mode="Markdown")
+            return
+
+        if not context.args:
+            await update.message.reply_text(
+                "🔑 **طريقة التفعيل:**\n"
+                "`/gauth [كلمة المرور]`\n\n"
+                "_أدخل كلمة المرور المعتمدة من المطور **lasso (@n0amtell)** لتفعيل البوت._ 📋",
+                parse_mode="Markdown"
+            )
+            return
+
+        entered_pass = context.args[0].strip()
+        expected_pass = INVITE_PASSWORD or os.getenv("INVITE_PASSWORD", "")
+
+        if entered_pass == expected_pass and expected_pass:
+            if str_cid not in settings["groups"]:
+                settings["groups"][str_cid] = {"welcome": None, "rules": None, "dialect": DEFAULT_DIALECT, "authorized": True}
+            else:
+                settings["groups"][str_cid]["authorized"] = True
+            save_settings(settings)
+
+            user_tag = f"@{user.username}" if user.username else user.first_name
+            await update.message.reply_text(
+                f"✅ **تم الترخيص بنجاح!**\n"
+                f"━━━━━━━━━━━━━━━━━━━━━\n"
+                f"تم تفعيل جميع خدمات غريس أشكروفت في هذا القطاع.\n"
+                f"شكراً لك، {user.first_name}. 📋",
+                parse_mode="Markdown"
+            )
+
+            log_msg = (
+                f"🔑 **إشعار تفعيل مجموعة جديد (/gauth)**\n"
+                f"━━━━━━━━━━━━━━━━━━━━━\n"
+                f"📌 **المجموعة:** `{chat_title}` (`{chat_id}`)\n"
+                f"👤 **المفعل:** {user_tag} (`{user_id}`)\n"
+                f"🕒 **الوقت:** `{datetime.now(TIMEZONE).strftime('%Y-%m-%d %H:%M:%S')}`\n"
+                f"━━━━━━━━━━━━━━━━━━━━━\n"
+                f"تم استخدام كلمة المرور المعتمدة بنجاح."
+            )
+            if LOG_CHANNEL:
+                try: await context.bot.send_message(int(LOG_CHANNEL), log_msg, parse_mode="Markdown")
+                except Exception: pass
+            if MASTER_ID:
+                try: await context.bot.send_message(MASTER_ID, log_msg, parse_mode="Markdown")
+                except Exception: pass
+        else:
+            await update.message.reply_text(
+                "❌ **كلمة المرور غير صحيحة.**\n"
+                "يرجى التواصل مع المطور **lasso (@n0amtell)** للحصول على التصريح. 📋",
+                parse_mode="Markdown"
+            )
+
+    except Exception as e:
+        logger.error(f"Error in cmd_auth: {e}")
 
 async def cmd_apply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
@@ -4617,6 +4746,7 @@ def main():
         app.add_handler(CommandHandler("gtoggleapply",  cmd_toggleapply))
         app.add_handler(CommandHandler("gcleardata",    cmd_cleardata))
         app.add_handler(CommandHandler("gclearchat",    cmd_clearchat))
+        app.add_handler(CommandHandler("gauth",        cmd_auth))
         app.add_handler(CommandHandler("gapply",        cmd_apply))
         app.add_handler(CommandHandler("gumbrella",     cmd_umbrella))
         app.add_handler(CommandHandler("a",             cmd_umbrella))
